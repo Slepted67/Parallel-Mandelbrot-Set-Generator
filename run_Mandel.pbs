@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N mandelbrot_scaling
+#PBS -l nodes=1:ppn=12
+#PBS -l walltime=00:20:00
+#PBS -q batch
+#PBS -j oe
+
+cd ~/final
+export OMP_NUM_THREADS=12
+
+for np in {5..12}; do
+    echo "Running with $np MPI processes"
+    mpiexec -n $np --bind-to none ./mandelbrot.x
+done
